@@ -26,34 +26,25 @@ class BinarySearchTree {
 
   add(data) {
     const newNode = new Node(data);
-    (this.head === null) ? this.head = newNode : this.addNode(this.head, newNode);
-  }
+    (this.head === null) ? this.head = newNode : addNode(this.head, newNode);
 
-  addNode(node, newNode) {
-    if (newNode.data < node.data) {
-      (node.left === null) ? node.left = newNode : this.addNode(node.left, newNode);
-    } else {
-      (node.right === null) ? node.right = newNode : this.addNode(node.right, newNode);
+    function addNode(node, newNode) {
+      if (newNode.data < node.data) {
+        (node.left === null) ? node.left = newNode : addNode(node.left, newNode);
+      } else {
+        (node.right === null) ? node.right = newNode : addNode(node.right, newNode);
+      }
     }
   }
 
   has(data) {
-    console.log(this.head);
-    return this.searchNode(this.head, data);
-  }
+    return searchNode(this.head, data);
 
-  searchNode(node, value) {
-    if (!node) {
-      return false;
+    function searchNode(node, value) {
+      if (!node) return false;
+      if (node.data === value) return true;
+      return value < node.data ? searchNode(node.left, value) : searchNode(node.right, value);
     }
-
-    if (node.data === value) {
-      return true;
-    }
-
-    return value < node.data ?
-      this.searchNode(node.left, value) :
-      this.searchNode(node.right, value);
   }
 
   find(data) {
